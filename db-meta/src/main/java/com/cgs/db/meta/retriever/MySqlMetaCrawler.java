@@ -2,16 +2,12 @@ package com.cgs.db.meta.retriever;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.cgs.db.exception.DatabaseMetaGetMetaException;
 import com.cgs.db.meta.core.SchemaInfoLevel;
@@ -29,7 +25,6 @@ import com.cgs.db.util.Utility;
 
 public class MySqlMetaCrawler extends AbstractMetaCrawler {
 
-	private static Logger logger = LoggerFactory.getLogger(MySqlMetaCrawler.class);
 	public static final String GET_CONSTRAINT_SQL = "select a.CONSTRAINT_NAME name,b.column_name columnName from information_schema.TABLE_CONSTRAINTS a left join information_schema.KEY_COLUMN_USAGE b "
 			+ "on a.CONSTRAINT_NAME = b.CONSTRAINT_NAME where a.CONSTRAINT_SCHEMA = ? and a.TABLE_NAME = ? and a.CONSTRAINT_TYPE= 'UNIQUE'";
 
@@ -144,7 +139,7 @@ public class MySqlMetaCrawler extends AbstractMetaCrawler {
 			public Procedure extractData(ResultSet rs) throws SQLException {
 				Procedure p = null;
 				while (rs.next()) {
-					String name = rs.getString("name");
+//					String name = rs.getString("name");
 					String definition = rs.getString("definition");
 					if (p == null) {
 						p = new Procedure();

@@ -5,7 +5,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import com.cgs.db.exception.CannotGetJdbcConnectionException;
 import com.cgs.db.exception.DataAccessException;
 import com.cgs.db.exception.DatabaseMetaGetMetaException;
-import com.cgs.db.meta.schema.Procedure;
 
 public class JDBCUtils {
 	private static Logger logger=LoggerFactory.getLogger(JDBCUtils.class);

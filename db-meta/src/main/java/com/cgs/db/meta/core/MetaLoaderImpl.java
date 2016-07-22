@@ -1,9 +1,7 @@
 package com.cgs.db.meta.core;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,23 +10,16 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cgs.db.exception.CannotGetJdbcConnectionException;
 import com.cgs.db.exception.DataAccessException;
 import com.cgs.db.exception.DatabaseMetaGetMetaException;
-import com.cgs.db.exception.NonTransientDataAccessException;
 import com.cgs.db.meta.retriever.MetaCrawler;
-import com.cgs.db.meta.retriever.MySqlMetaCrawler;
-import com.cgs.db.meta.retriever.OracleMetaCrawler;
-import com.cgs.db.meta.retriever.SqlServerMetaCrawler;
 import com.cgs.db.meta.schema.Database;
-import com.cgs.db.meta.schema.DatabaseInfo;
 import com.cgs.db.meta.schema.Function;
 import com.cgs.db.meta.schema.Procedure;
 import com.cgs.db.meta.schema.Schema;
 import com.cgs.db.meta.schema.SchemaInfo;
 import com.cgs.db.meta.schema.Table;
 import com.cgs.db.meta.schema.Trigger;
-import com.cgs.db.util.Assert;
 import com.cgs.db.util.JDBCUtils;
 
 /**
@@ -51,6 +42,10 @@ public class MetaLoaderImpl implements MetaLoader {
 	
 	private MetaCrawlerFactory factory=new DefaultMetaCrawlerFactory();
 
+	public MetaCrawlerFactory getFactory() {
+		return factory;
+	}
+
 	public void setFactory(MetaCrawlerFactory factory) {
 		this.factory = factory;
 	}
@@ -66,6 +61,26 @@ public class MetaLoaderImpl implements MetaLoader {
 	public MetaLoaderImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
+	
+	public MetaCrawler getMetaCrawler() {
+		Connection con = JDBCUtils.getConnection(dataSource);
+		try{
+			return factory.newInstance(con);
+		} catch(DataAccessException e){
+			logger.debug(e.getMessage(),e);
+			throw new DatabaseMetaGetMetaException("Get tables error!", e);
+		}
+		// has not close, so need to close
+	}
+	
+	public void closeConn(MetaCrawler crawler) {
+		try {
+			JDBCUtils.closeConnection(crawler.getDbm().getConnection());
+		} catch (SQLException e) {
+			//do nothing
+		}
+	}
+	
 
 	public Set<String> getTableNames() {
 		Connection con = JDBCUtils.getConnection(dataSource);
@@ -314,9 +329,5 @@ public class MetaLoaderImpl implements MetaLoader {
 			JDBCUtils.closeConnection(con);
 		}
 	}
-
-
-
-	
 
 }

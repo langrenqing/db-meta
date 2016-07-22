@@ -7,6 +7,11 @@ package com.cgs.db.exception;
  *
  */
 public class DatabaseMetaGetMetaException extends DataAccessException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public DatabaseMetaGetMetaException(String msg) {
 		super(msg);
 	}

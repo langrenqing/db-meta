@@ -1,7 +1,6 @@
 package com.cgs.db.meta.schema;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 public class Table implements Serializable{

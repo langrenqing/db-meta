@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cgs.db.exception.DatabaseMetaGetMetaException;
 import com.cgs.db.exception.NonTransientDataAccessException;
 import com.cgs.db.meta.core.SchemaInfoLevel;
@@ -27,7 +24,6 @@ import com.cgs.db.util.ResultSetExtractor;
 
 public class SqlServerMetaCrawler extends AbstractMetaCrawler {
 
-	private static Logger logger = LoggerFactory.getLogger(SqlServerMetaCrawler.class);
 
 	public final static String GET_CHECK_CONSTRAINT_SQL = "SELECT a.name name,a.type type,a.definition definition,b.name tableName FROM  "
 			+ "(select OBJECT_ID,name from sys.tables where name=?) b left join " + "sys.check_constraints a  on a.parent_object_id=b.object_id";

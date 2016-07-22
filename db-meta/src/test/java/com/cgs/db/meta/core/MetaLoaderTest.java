@@ -21,7 +21,6 @@ import com.cgs.db.meta.schema.SchemaInfo;
 import com.cgs.db.meta.schema.Table;
 import com.cgs.db.meta.schema.Trigger;
 import com.cgs.db.util.PrintUtils;
-import com.mysql.jdbc.DatabaseMetaDataUsingInfoSchema;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:config.xml")
@@ -42,7 +41,7 @@ public class MetaLoaderTest {
 	}
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void getTableNames() {
 		Set<String> tableNames = metaLoader.getTableNames();
 
@@ -88,7 +87,7 @@ public class MetaLoaderTest {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void getSchemaInfos() {
 		long startTime = System.currentTimeMillis();
 

@@ -11,9 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +27,6 @@ import com.cgs.db.meta.schema.ForeignKey;
 import com.cgs.db.meta.schema.ForeignKeyColumnReference;
 import com.cgs.db.meta.schema.ForeignKeyDeferrability;
 import com.cgs.db.meta.schema.ForeignKeyUpdateRule;
-import com.cgs.db.meta.schema.Function;
 import com.cgs.db.meta.schema.Index;
 import com.cgs.db.meta.schema.IndexType;
 import com.cgs.db.meta.schema.PrimaryKey;
@@ -48,6 +44,10 @@ public abstract class AbstractMetaCrawler implements MetaCrawler {
 	private Logger logger = LoggerFactory.getLogger(AbstractMetaCrawler.class);
 
 	protected DatabaseMetaData dbm;
+
+	public DatabaseMetaData getDbm() {
+		return dbm;
+	}
 
 	public void setDbm(DatabaseMetaData dbm) {
 		this.dbm = dbm;
@@ -428,7 +428,6 @@ public abstract class AbstractMetaCrawler implements MetaCrawler {
 	}
 
 	public Schema getSchema(SchemaInfoLevel level) {
-		ResultSet rs;
 		SchemaInfo schemaInfo = null;
 		Schema schema = new Schema();
 		Map<String, Table> tables = new HashMap<String, Table>();

@@ -81,7 +81,7 @@ public class PrintUtils {
 	 * @throws Exception
 	 */
 	public static String sqlType2String(int type) throws Exception{
-		Class cl=Types.class;
+		Class<Types> cl=Types.class;
 		Field[] fields=cl.getFields();
 		for (Field field : fields) {
 			int value=field.getInt(null);

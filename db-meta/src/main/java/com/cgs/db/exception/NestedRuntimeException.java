@@ -19,6 +19,11 @@ package com.cgs.db.exception;
 public abstract class NestedRuntimeException extends RuntimeException {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Construct a {@code NestedRuntimeException} with the specified detail
 	 * message.
 	 * 

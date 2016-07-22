@@ -1,8 +1,6 @@
 package com.cgs.db.meta.retriever;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -26,7 +24,6 @@ import com.cgs.db.meta.schema.Trigger;
 import com.cgs.db.util.Assert;
 import com.cgs.db.util.JDBCUtils;
 import com.cgs.db.util.ResultSetExtractor;
-import com.cgs.db.util.Utility;
 
 public class OracleMetaCrawler extends AbstractMetaCrawler {
 	private Logger logger = LoggerFactory.getLogger(OracleMetaCrawler.class);

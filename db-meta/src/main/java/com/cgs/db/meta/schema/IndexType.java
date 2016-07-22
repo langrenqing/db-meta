@@ -2,9 +2,6 @@ package com.cgs.db.meta.schema;
 
 import java.sql.DatabaseMetaData;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 /**
  * An enumeration wrapper around index types.
