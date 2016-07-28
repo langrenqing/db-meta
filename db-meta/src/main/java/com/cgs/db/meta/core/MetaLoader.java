@@ -21,6 +21,13 @@ public interface MetaLoader {
 	Set<String> getTableNames() throws DataAccessException;
 	
 	/**
+	 * get schema's table names
+	 * 
+	 * @return Set<String>
+	 */
+	Set<String> getTableNames(SchemaInfo schemaInfo);
+	
+	/**
 	 * get current datasource own schema's table.Default Level Table contaion
 	 *  columns、primaryKey、ForeignKey、index
 	 *  

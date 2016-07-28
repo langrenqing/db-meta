@@ -3,6 +3,7 @@ package com.cgs.db.meta.core;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -63,6 +64,9 @@ public class MetaLoaderImpl implements MetaLoader {
 	}
 	
 	public MetaCrawler getMetaCrawler() {
+		Properties props =new Properties();
+		props.setProperty("remarks", "true"); //设置可以获取remarks信息 
+        props.setProperty("useInformationSchema", "true");//设置可以获取tables remarks信息
 		Connection con = JDBCUtils.getConnection(dataSource);
 		try{
 			return factory.newInstance(con);
@@ -95,6 +99,22 @@ public class MetaLoaderImpl implements MetaLoader {
 			JDBCUtils.closeConnection(con);
 		}
 	}
+	
+	
+	public Set<String> getTableNames(SchemaInfo schemaInfo) {
+		Connection con = JDBCUtils.getConnection(dataSource);
+		MetaCrawler metaCrawler=null;
+		try{
+			metaCrawler=factory.newInstance(con);
+			return metaCrawler.getTableNames(schemaInfo);
+		}catch(DataAccessException e){
+			logger.debug(e.getMessage(),e);
+			throw new DatabaseMetaGetMetaException("Get tables error!", e);
+		}finally{
+			JDBCUtils.closeConnection(con);
+		}
+	}
+	
 
 	public Table getTable(String tableName) {
 		return getTable(tableName, SchemaInfoLevel.standard());

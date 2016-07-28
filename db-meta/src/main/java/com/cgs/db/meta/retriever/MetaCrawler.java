@@ -20,6 +20,8 @@ public interface MetaCrawler {
 	
 	Set<String> getTableNames();
 	
+	Set<String> getTableNames(SchemaInfo schemaInfo);
+	
 //	Table getTable(String tableName);
 	
 	Table getTable(String tableName,SchemaInfoLevel schemaInfoLevel);
